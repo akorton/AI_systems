@@ -10,26 +10,12 @@ heroes_synergy(HERO1, HERO2) :-
     \+(HERO1 = HERO2),
     hero_ability_type(HERO1, TYPE1),
     hero_ability_type(HERO2, TYPE2),
-    TYPE1 = dmg_single,
-    TYPE2 = stun_single.
-heroes_synergy(HERO1, HERO2) :-
-    \+(HERO1 = HERO2),
-    hero_ability_type(HERO1, TYPE1),
-    hero_ability_type(HERO2, TYPE2),
-    TYPE1 = stun_single,
-    TYPE2 = dmg_single.
-heroes_synergy(HERO1, HERO2) :-
-    \+(HERO1 = HERO2),
-    hero_ability_type(HERO1, TYPE1),
-    hero_ability_type(HERO2, TYPE2),
-    TYPE1 = dmg_aoe,
-    TYPE2 = stun_aoe.
-heroes_synergy(HERO1, HERO2) :-
-    \+(HERO1 = HERO2),
-    hero_ability_type(HERO1, TYPE1),
-    hero_ability_type(HERO2, TYPE2),
-    TYPE1 = stun_aoe,
-    TYPE2 = dmg_aoe.
+    (
+    TYPE1 = dmg_single, TYPE2 = stun_single;
+    TYPE1 = stun_single, TYPE2 = dmg_single;
+    TYPE1 = dmg_aoe, TYPE2 = stun_aoe;
+    TYPE1 = stun_aoe, TYPE2 = dmg_aoe
+    ).
 heroes_synergy(HERO1, HERO2, HERO3) :-
     heroes_synergy(HERO1, HERO2),
     heroes_synergy(HERO2, HERO3),
