@@ -1,4 +1,4 @@
-:- module(synergy, [heroes_synergy/2]).
+:- module(synergy, [heroes_synergy/2, heroes_synergy/3]).
 :- use_module(abilities).
 :- use_module(heroes).
 
@@ -30,3 +30,7 @@ heroes_synergy(HERO1, HERO2) :-
     hero_ability_type(HERO2, TYPE2),
     TYPE1 = stun_aoe,
     TYPE2 = dmg_aoe.
+heroes_synergy(HERO1, HERO2, HERO3) :-
+    heroes_synergy(HERO1, HERO2),
+    heroes_synergy(HERO2, HERO3),
+    heroes_synergy(HERO1, HERO3).

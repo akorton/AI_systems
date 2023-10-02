@@ -1,4 +1,4 @@
-:- module(abilities, [ability/2, ability_type/2, hero_ability_type/2]).
+:- module(abilities, [ability/2, ability_type/2, hero_ability_type/2, hero_with_stun/1, hero_with_dmg/1, universal_hero/1]).
 :- use_module(heroes).
 
 
@@ -71,4 +71,9 @@ ability_type("FINGER OF DEATH", dmg_single).
 ability_type("REVERSE POLARITY", stun_aoe).
 ability_type("WUKONG'S COMMAND", dmg_aoe).
 
+% Get hero ability types
 hero_ability_type(HERO, TYPE) :- hero(HERO), ability(ABILITY, HERO), ability_type(ABILITY, TYPE).
+hero_with_stun(HERO) :- hero_ability_type(HERO, TYPE), (TYPE = stun_single; TYPE = stun_aoe).
+hero_with_dmg(HERO) :- hero_ability_type(HERO, TYPE), (TYPE = dmg_single; TYPE = dmg_aoe).
+% Hero with both stun skill and dmg skill
+universal_hero(HERO) :- hero_with_dmg(HERO), hero_with_stun(HERO).
