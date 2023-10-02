@@ -1,4 +1,4 @@
-:- module(abilities, [ability/2, ability_type/2]).
+:- module(abilities, [ability/2, ability_type/2, hero_ability_type/2]).
 :- use_module(heroes).
 
 
@@ -21,6 +21,7 @@ ability("CHRONOSPHERE", "FACELESS VOID").
 ability("CALL DOWN", "GYROCOPTER").
 ability("SHARPSHOOTER", "HOODWINK").
 ability("LIFE BREAK", "HUSKAR").
+ability("LIFE BREAK AGHANIM'S SCEPTER", "HUSKAR").
 ability("SUN STRIKE", "INVOKER").
 ability("SUN STRIKE AGHANIM'S SCEPTER", "INVOKER").
 ability("ICE PATH", "JAKIRO").
@@ -43,7 +44,7 @@ ability_type("FLAMING LASSO", stun_single).
 ability_type("PRIMAL ROAR", stun_single).
 ability_type("FREEZING FIELD", dmg_aoe).
 ability_type("VACUUM", stun_aoe).
-ability_type("BEDLAM", dmg_aoe).
+ability_type("BEDLAM", dmg_single).
 ability_type("TERRORIZE", stun_aoe).
 ability_type("MAGNETIZE", dmg_aoe).
 ability_type("ECHO SLAM", stun_aoe).
@@ -57,6 +58,7 @@ ability_type("CHRONOSPHERE", stun_aoe).
 ability_type("CALL DOWN", dmg_aoe).
 ability_type("SHARPSHOOTER", dmg_single).
 ability_type("LIFE BREAK", dmg_single).
+ability_type("LIFE BREAK AGHANIM'S SCEPTER", stun_single).
 ability_type("SUN STRIKE", dmg_single).
 ability_type("SUN STRIKE AGHANIM'S SCEPTER", dmg_aoe).
 ability_type("ICE PATH", stun_aoe).
@@ -68,3 +70,5 @@ ability_type("LAGUNA BLADE", dmg_single).
 ability_type("FINGER OF DEATH", dmg_single).
 ability_type("REVERSE POLARITY", stun_aoe).
 ability_type("WUKONG'S COMMAND", dmg_aoe).
+
+hero_ability_type(HERO, TYPE) :- hero(HERO), ability(ABILITY, HERO), ability_type(ABILITY, TYPE).
