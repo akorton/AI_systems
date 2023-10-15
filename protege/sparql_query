@@ -1,0 +1,14 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX itmo: <http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#>
+SELECT ?hero1 ?ability1 ?type1 ?hero2 ?ability2 ?type2
+WHERE {
+?hero1 itmo:hero_ability ?ability1.
+?ability1 itmo:ability_type ?type1.
+?type1 itmo:ability_type_literal "dmg_aoe"^^xsd:string.
+?hero2 itmo:hero_ability ?ability2.
+?ability2 itmo:ability_type ?type2.
+?type2 itmo:ability_type_literal "stun_aoe"^^xsd:string.
+}
