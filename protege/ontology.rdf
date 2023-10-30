@@ -4,13 +4,33 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:ITMO_DOTA_SYNERGY="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#">
+     xmlns:ITMO_DOTA_SYNERGY="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#"
+     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
     <owl:Ontology rdf:about="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY">
         <owl:versionIRI rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/1.0"/>
         <rdfs:comment>Ontology of Dota 2 heroes synergies</rdfs:comment>
     </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled -->
+
+    <owl:AnnotationProperty rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
     
 
 
@@ -49,6 +69,15 @@
                 <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#Ability"/>
             </owl:Restriction>
         </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#hero_ability_type -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#hero_ability_type">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#Hero"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#AbilityType"/>
     </owl:ObjectProperty>
     
 
@@ -1099,6 +1128,73 @@
         </rdf:type>
         <ITMO_DOTA_SYNERGY:ability_type rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#dmg_aoe"/>
     </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Rules
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/x">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/y">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/z">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></rdfs:comment>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hero_ability_type</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#hero_ability"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/x"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/y"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#ability_type"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/y"/>
+                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/z"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY#hero_ability_type"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/x"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/z"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
 </rdf:RDF>
 
 

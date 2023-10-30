@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1697386496738" name="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/" uri="ontology.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1698656867673" name="http://www.semanticweb.org/andy/ontologies/2023/9/ITMO_DOTA_SYNERGY/" uri="ontology.rdf"/>
     </group>
 </catalog>
