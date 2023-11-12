@@ -2,6 +2,7 @@ import pandas as pd
 import warnings
 import numpy as np
 import math
+import matplotlib.pyplot as plt
 
 
 warnings.filterwarnings("ignore")
@@ -11,13 +12,23 @@ df = pd.read_csv("california_housing_train.csv")
 features = ["longitude", "latitude", "housing_median_age", "total_rooms",
             "total_bedrooms", "population", "households", "median_income", "median_house_value"]
 
-# print(df.count())
-# print(df.mean())
-# print(df.std())
-# print(df.min())
-# print(df.max())
-# TODO квантили
-# TODO визуализация
+for feature in features:
+    plt.figure(figsize=(10, 10))
+    plt.hist(df[feature], bins=100)
+    plt.title(f"Visual representation of {feature}\n")
+    plt.xlabel(feature)
+    plt.ylabel("Number of data entities with this value")
+
+    quantiles = df[feature].quantile([0.25, 0.5, 0.75])
+    for quantile, quantile_value in quantiles.items():
+        plt.axvline(x=quantile_value, color="red", linestyle=":", label=f"{quantile*100}% квантиль")
+    plt.axvline(x=df[feature].mean(), color="green", linestyle=":", label=f"Среднее значение {int(df[feature].mean() * 1000) / 1000}")
+
+    print(f"Statistics for feature {feature}\n")
+    print(df[features].describe()[feature].to_string())
+
+    plt.legend()
+    plt.show()
 
 
 # Minmax normalization
