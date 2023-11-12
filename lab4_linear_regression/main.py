@@ -28,7 +28,7 @@ for feature in features:
     print(df[features].describe()[feature].to_string())
 
     plt.legend()
-    plt.show()
+    # plt.show()
 
 
 # Minmax normalization
@@ -39,12 +39,11 @@ def normalize(col: pd.Series):
         col[index] = (col[index] - col_min) / (col_max - col_min)
 
 
-def train_test_split(df, x_cols, y_col, test_size, random_state):
-    df_copy = df.copy()
-    np.random.seed(random_state)
-    np.random.shuffle(df_copy.values)
-    train_size = math.ceil(df_copy.shape[0] * test_size)
-    return df_copy[x_cols][:train_size], df_copy[x_cols][train_size:], df_copy[y_col][:train_size], df_copy[y_col][train_size:]
+def train_test_split(df, x_cols, y_col, test_size=0.2):
+    df_copy = df.sample(frac=1).reset_index(drop=True)
+    train_size = math.ceil(df_copy.shape[0] * (1 - test_size))
+    return (df_copy[x_cols][:train_size], df_copy[x_cols][train_size:], df_copy[y_col][:train_size],
+            df_copy[y_col][train_size:])
 
 
 df4 = df.copy()
@@ -62,8 +61,8 @@ def swap_col(x_train_numpy, col_num, new_col):
         x_train_numpy[i][col_num] = new_col[i]
 
 
-def linear_regression(df, x_cols, y_col, test_size=0.2, random_state=42):
-    x_train, x_test, y_train, y_test = train_test_split(df, x_cols, y_col, test_size, random_state)
+def linear_regression(df, x_cols, y_col, test_size=0.2):
+    x_train, x_test, y_train, y_test = train_test_split(df, x_cols, y_col, test_size)
     x_train.insert(0, "Extra", np.ones(x_train.shape[0]))
     x_train_numpy = x_train.to_numpy()
     A = np.zeros((x_train_numpy.shape[1], x_train_numpy.shape[1]))
