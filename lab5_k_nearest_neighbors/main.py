@@ -39,11 +39,15 @@ def get_error_matrix(y_true, y_pred):
     return matrix
 
 
+def get_accuracy(matrix):
+    return sum(matrix[i][i] for i in range(len(matrix))) / sum(sum(i) for i in matrix)
+
+
 def print_error_matrix_pretty(matrix):
     df_error = pd.DataFrame(matrix, columns=["True 1", "True 2", "True 3"],
                             index=["Predicted 1", "Predicted 2", "Predicted 3"])
     print(df_error)
-    accuracy_all = sum(matrix[i][i] for i in range(len(matrix))) / sum(sum(i) for i in matrix)
+    accuracy_all = get_accuracy(matrix)
     print(f"Accuracy among all: {round(accuracy_all, 3)}")
     print()
 
@@ -60,9 +64,45 @@ def knn(df, x_columns, y_column, k, test_size=0.2, random_state=42):
     return get_error_matrix(y_test, y_pred)
 
 
+def multiple_knns(df, x_columns, y_columns, ks, print_info=True):
+    if print_info:
+        print("Features:", *x_columns)
+        print()
+    matrixes = []
+    for k in ks:
+        matrixes.append(knn(df, x_columns, y_columns, k))
+        if print_info:
+            print_error_matrix_pretty(matrixes[-1])
+    return matrixes
+
+
+def get_features_from_bin(bin_repr):
+    return [i for idx, i in enumerate(features[:-1]) if bin_repr[len(features[:-1]) - idx - 1] == "1"]
+
+
 y_col = features[-1]
-# set1
-x_cols = features[:-1]
-print_error_matrix_pretty(knn(df, x_cols, y_col, 3))
-print_error_matrix_pretty(knn(df, x_cols, y_col, 7))
-print_error_matrix_pretty(knn(df, x_cols, y_col, 15))
+ks = [3, 7, 15]
+# random set
+x_cols_1 = []
+for i in features[:-1]:
+    if np.random.random() > 0.5:
+        x_cols_1.append(i)
+multiple_knns(df, x_cols_1, y_col, ks)
+
+# fixed set
+x_cols_2 = ['Alcohol', 'Malic Acid', 'Alcalinity of ash', 'Flavanoids', 'Proanthocyanins', 'Color intensity']
+multiple_knns(df, x_cols_2, y_col, ks)
+
+# max_mean_accuracy = 0
+# ans_features = []
+# for i in range(2**len(features[:-1]) - 1):
+#     bin_repr = bin(i)[2:]
+#     bin_repr = (len(features[:-1]) - len(bin_repr)) * "0" + bin_repr
+#     x_cols = get_features_from_bin(bin_repr)
+#     accuracies = [get_accuracy(i) for i in multiple_knns(df, x_cols, y_col, ks, False)]
+#     cur_mean = sum(accuracies) / len(accuracies)
+#     if cur_mean > max_mean_accuracy:
+#         max_mean_accuracy = cur_mean
+#         ans_features = x_cols
+# print(max_mean_accuracy)
+# print(ans_features)
