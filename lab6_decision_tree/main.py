@@ -71,8 +71,7 @@ def getBestFeature(data: pd.DataFrame):
             cur_coef = len(cur_elements) / len(data)
             cur_split += cur_coef * np.log2(cur_coef)
             cur_conditional_entropy += getInfo(cur_elements) * cur_coef
-        cur_split = -cur_split
-        cur_gain_ratio = (cur_entropy - cur_conditional_entropy) # /cur_split
+        cur_gain_ratio = (cur_entropy - cur_conditional_entropy)
         if cur_gain_ratio > max_gain_ratio:
             max_gain_ratio = cur_gain_ratio
             max_gain_ratio_feature = feature
